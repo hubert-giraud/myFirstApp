@@ -1,15 +1,10 @@
 package com.haluberlu.myfirstapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.Button;
 
@@ -31,7 +26,8 @@ public class accueil extends Activity {
             @Override
             public void onClick(View v) {
 
-                //TODO lance la vue creer une partie
+                Intent intent = new Intent(accueil.this, createGame.class);
+                startActivity(intent);
             }
         });
 
