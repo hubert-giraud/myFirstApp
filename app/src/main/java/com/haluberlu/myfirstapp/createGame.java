@@ -30,6 +30,9 @@ public class createGame extends Activity {
         createGameBtn = (Button) findViewById(R.id.startGame);
 
         createGameBtn.setOnClickListener(startGameListener);
+
+        JoueurBDD joueurBDD = new JoueurBDD(this);
+
     }
 
     private View.OnClickListener startGameListener = new View.OnClickListener() {
