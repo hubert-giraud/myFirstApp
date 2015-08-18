@@ -33,6 +33,8 @@ public class GameActivity extends Activity {
     int nbPtsJ1;
     int nbPtsJ2;
 
+    Partie partie;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,7 @@ public class GameActivity extends Activity {
         j2SubBtn.setOnClickListener(subListener);
 
         Intent i = getIntent();
+
         String[] noms = i.getStringArrayExtra(createGame.NOMS);
 
         if(!"".equals(noms[0])) {
@@ -75,6 +78,21 @@ public class GameActivity extends Activity {
         if(!"".equals(noms[2])) {
             nomJ2.setText(noms[2]);
         }
+
+        //a faire en // pour ne pas bloquer le thread UI?
+        partie = new Partie();
+        partie.setNomPartie(noms[0]);
+        partie.setNomJ1(noms[1]);
+        partie.setNomJ2(noms[2]);
+        partie.setPtsJ1(0);
+        partie.setPtsJ2(0);
+
+        PartiesBDD partiesBDD = new PartiesBDD(this);
+
+        partiesBDD.open();
+        partiesBDD.insertPartie(partie); //TODO tester si la partie n'esiste pas
+        partiesBDD.close();
+
     }
 
     private View.OnClickListener addListener = new View.OnClickListener() {
@@ -89,25 +107,35 @@ public class GameActivity extends Activity {
                 case R.id.ajouter_j1:
                     p = ptsEditJ1.getText().toString();
 
-                    pValue = Integer.parseInt(p); // pk valueOf?
+                    if(!"".equals(p)) {
+                        pValue = Integer.parseInt(p); // pk valueOf?
 
-                    nbPtsJ1 += pValue;
+                        nbPtsJ1 += pValue;
 
-                    ptsJ1.setText(nbPtsJ1 + " points");
+                        ptsJ1.setText(nbPtsJ1 + " points");
 
-                    ptsEditJ1.getText().clear();
+                        partie.setPtsJ1(nbPtsJ1);
+
+                        ptsEditJ1.getText().clear();
+                    }
                     break;
 
                 case R.id.ajouter_j2:
                     p = ptsEditJ2.getText().toString();
 
-                    pValue = Integer.parseInt(p); // pk valueOf?
+                    if(!"".equals(p)) {
+                        pValue = Integer.parseInt(p); // pk valueOf?
 
-                    nbPtsJ2 += pValue;
+                        nbPtsJ2 += pValue;
 
-                    ptsJ2.setText(nbPtsJ2 + " points");
+                        ptsJ2.setText(nbPtsJ2 + " points");
 
-                    ptsEditJ2.getText().clear();
+                        partie.setPtsJ2(nbPtsJ2);
+
+                        ptsEditJ2.getText().clear();
+                    }
+
+
             }
         }
     };
@@ -122,21 +150,36 @@ public class GameActivity extends Activity {
             switch(v.getId()) {
                 case R.id.soustraire_j1 :
                     p = ptsEditJ1.getText().toString();
-                    pValue = Integer.parseInt(p);
-                    nbPtsJ1 -= pValue;
-                    ptsJ1.setText(nbPtsJ1 + " points");
-                    ptsEditJ1.getText().clear();
+                    if(!"".equals(p)){
+                        pValue = Integer.parseInt(p);
+                        nbPtsJ1 -= pValue;
+                        ptsJ1.setText(nbPtsJ1 + " points");
+                        partie.setPtsJ1(nbPtsJ1);
+                        ptsEditJ1.getText().clear();
+                    }
                     break;
 
                 case R.id.soustraire_j2 :
                     p = ptsEditJ2.getText().toString();
-                    pValue = Integer.parseInt(p);
-                    nbPtsJ2 -= pValue;
-                    ptsJ2.setText(nbPtsJ2 + " points");
-                    ptsEditJ2.getText().clear();
+                    if(!"".equals(p)) {
+                        pValue = Integer.parseInt(p);
+                        nbPtsJ2 -= pValue;
+                        ptsJ2.setText(nbPtsJ2 + " points");
+                        partie.setPtsJ2(nbPtsJ2);
+                        ptsEditJ2.getText().clear();
+                    }
                     break;
             }
         }
     };
 
+    protected void onStop() {
+        PartiesBDD partiesBDD = new PartiesBDD(this);
+
+        partiesBDD.open();
+        //partiesBDD.insert(partie);
+        partiesBDD.close();
+
+        super.onStop();
+    }
 }

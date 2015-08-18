@@ -1,13 +1,14 @@
 package com.haluberlu.myfirstapp;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Date;
 
 /**
  * Created by haluberlu on 05/08/2015.
  */
-public class Joueur implements Parcel {
+public class Joueur implements Parcelable {
 
     private int id;
     private String nom;

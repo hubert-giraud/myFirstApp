@@ -31,7 +31,9 @@ public class createGame extends Activity {
 
         createGameBtn.setOnClickListener(startGameListener);
 
-        JoueurBDD joueurBDD = new JoueurBDD(this);
+        //JoueurBDD joueurBDD = new JoueurBDD(this);
+
+
 
     }
 
@@ -39,8 +41,13 @@ public class createGame extends Activity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(createGame.this, GameActivity.class);
-            String[] noms = new String[] {nomPartie.getText().toString(), nomJ1ET.getText().toString(), nomJ2ET.getText().toString()};
-            intent.putExtra(NOMS, noms);
+            //String[] noms = new String[] {nomPartie.getText().toString(), nomJ1ET.getText().toString(), nomJ2ET.getText().toString()};
+            //intent.putExtra(NOMS, noms);
+            Partie partie = new Partie();
+            partie.setNomPartie(nomPartie.getText().toString());
+            partie.setNomJ1(nomJ1ET.getText().toString());
+            partie.setNomJ2(nomJ2ET.getText().toString());
+            intent.putExtra("com.haluberlu.myfirstapp.Partie", partie);
             startActivity(intent);
         }
     };

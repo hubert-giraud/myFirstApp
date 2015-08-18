@@ -36,7 +36,8 @@ public class accueil extends Activity {
         reprendreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO lance la vue reprendre une partie
+                Intent intent1 = new Intent(accueil.this, Reprendre.class);
+                startActivity(intent1);
             }
         });
 

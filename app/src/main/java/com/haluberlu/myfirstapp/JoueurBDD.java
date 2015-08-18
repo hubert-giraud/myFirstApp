@@ -62,7 +62,7 @@ public class JoueurBDD {
 
         Joueur joueur = new Joueur();
         joueur.setId(c.getInt(NUM_COL_ID));
-        joueur.setNom(c.getString(NUM_COL_NOM))
+        joueur.setNom(c.getString(NUM_COL_NOM));
         joueur.setDate_creation(c.getString(NUM_COL_DATE_CREATION));
 
         c.close();

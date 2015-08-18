@@ -29,6 +29,13 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity
+            android:name=".Reprendre"
+            android:label="liste des parties"
+            android:screenOrientation="portrait">
+
+        </activity>
+
     </application>
 
 </manifest>

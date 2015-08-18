@@ -12,18 +12,33 @@ public class Partie implements Parcelable {
 
     private int id;
     private String nomPartie;
-    private int nbJoueurs;
     private String nomJ1;
     private int ptsJ1;
     private String nomJ2;
     private int ptsJ2;
-    private String nomJ3;
-    private int ptsJ3;
-    private String nomJ4;
-    private int ptsJ4;
-    private String date_creation;
+
+    public static final Parcelable.Creator<Partie> CREATOR = new Parcelable.Creator<Partie>() {
+
+        @Override
+        public Partie createFromParcel(Parcel source) {
+            return new Partie(source);
+        }
+
+        @Override
+        public Partie[] newArray(int size) {
+            return new Partie[size];
+        }
+    };
 
     public Partie() {
+    }
+
+    public Partie(Parcel in) {
+        nomPartie = in.readString();
+        nomJ1 = in.readString();
+        ptsJ1 = in.readInt();
+        nomJ2 = in.readString();
+        ptsJ2 = in.readInt();
     }
 
     public int getId() {
@@ -40,14 +55,6 @@ public class Partie implements Parcelable {
 
     public void setNomPartie(String nomPartie) {
         this.nomPartie = nomPartie;
-    }
-
-    public int getNbJoueurs() {
-        return nbJoueurs;
-    }
-
-    public void setNbJoueurs(int nbJoueurs) {
-        this.nbJoueurs = nbJoueurs;
     }
 
     public String getNomJ1() {
@@ -82,46 +89,6 @@ public class Partie implements Parcelable {
         this.ptsJ2 = ptsJ2;
     }
 
-    public String getNomJ3() {
-        return nomJ3;
-    }
-
-    public void setNomJ3(String nomJ3) {
-        this.nomJ3 = nomJ3;
-    }
-
-    public int getPtsJ3() {
-        return ptsJ3;
-    }
-
-    public void setPtsJ3(int ptsJ3) {
-        this.ptsJ3 = ptsJ3;
-    }
-
-    public String getNomJ4() {
-        return nomJ4;
-    }
-
-    public void setNomJ4(String nomJ4) {
-        this.nomJ4 = nomJ4;
-    }
-
-    public int getPtsJ4() {
-        return ptsJ4;
-    }
-
-    public void setPtsJ4(int ptsJ4) {
-        this.ptsJ4 = ptsJ4;
-    }
-
-    public String getDate_creation() {
-        return date_creation;
-    }
-
-    public void setDate_creation(String date_creation) {
-        this.date_creation = date_creation;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -131,15 +98,9 @@ public class Partie implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(nomPartie);
-        dest.writeInt(nbJoueurs);
         dest.writeString(nomJ1);
         dest.writeInt(ptsJ1);
         dest.writeString(nomJ2);
         dest.writeInt(ptsJ2);
-        dest.writeString(nomJ3);
-        dest.writeInt(ptsJ3);
-        dest.writeString(nomJ4);
-        dest.writeInt(ptsJ4);
-        dest.writeString(date_creation);
     }
 }
