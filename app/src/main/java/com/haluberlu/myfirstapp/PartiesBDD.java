@@ -5,9 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 
-/**
- * Created by haluberlu on 05/08/2015.
- */
 public class PartiesBDD {
 
     private static final int VERSION_BDD = 1;
@@ -67,7 +64,7 @@ public class PartiesBDD {
     }
 
     public Partie getPartie(String nom) {
-        String[] colonnesTab = {COL_NOM, COL_NOM_J1, COL_NB_PTS_J1, COL_NOM_J2, COL_NB_PTS_J2};
+        String[] colonnesTab = {COL_ID, COL_NOM, COL_NOM_J1, COL_NB_PTS_J1, COL_NOM_J2, COL_NB_PTS_J2};
         Cursor c = bdd.query(PARTIE_TABLE_NAME, colonnesTab, COL_NOM + " LIKE \"" + nom + "\"", null, null, null, null);
         return cursorToPartie(c);
     }

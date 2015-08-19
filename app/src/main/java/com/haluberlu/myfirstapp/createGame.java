@@ -7,17 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-/**
- * Created by haluberlu on 18/07/2015.
- */
 public class createGame extends Activity {
 
-    public static final String NOMS = "com.haluberlu.myfirstapp.NOMS";
+    public static final String NOM = "com.haluberlu.myfirstapp..createGame.NOM";
 
     private EditText nomPartie;
     private EditText nomJ1ET;
     private EditText nomJ2ET;
     private Button createGameBtn;
+
+    private String activityName = "createGame";
 
     @Override
     public void onCreate(Bundle savedStateInstance) {
@@ -47,8 +46,8 @@ public class createGame extends Activity {
             partie.setNomPartie(nomPartie.getText().toString());
             partie.setNomJ1(nomJ1ET.getText().toString());
             partie.setNomJ2(nomJ2ET.getText().toString());
-            intent.putExtra("com.haluberlu.myfirstapp.createGame.NOM_PARTIE", partie);
-            intent.putExtra("originator", "createGame");
+            intent.putExtra("originator", activityName);
+            intent.putExtra(NOM, partie);
             startActivity(intent);
         }
     };

@@ -9,9 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * Created by haluberlu on 18/07/2015.
- */
 public class GameActivity extends Activity {
 
 
@@ -35,6 +32,8 @@ public class GameActivity extends Activity {
     int nbPtsJ2;
 
     Partie partie;
+
+    PartiesBDD partiesBDD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,50 +63,28 @@ public class GameActivity extends Activity {
         j1SubBtn.setOnClickListener(subListener);
         j2SubBtn.setOnClickListener(subListener);
 
-        PartiesBDD partiesBDD = new PartiesBDD(this);
+        partiesBDD = new PartiesBDD(this);
 
         partiesBDD.open();
 
         Intent i = getIntent();
+        String originator = getIntent().getStringExtra("originator");
 
+        //Bundle extras = i.getExtras();
 
-
-        if(i.getStringExtra("originator").equals("createGame")) {
-            partie = i.getParcelableExtra("com.haluberlu.myfirstapp.createGame.NOM_PARTIE");
+        if(originator.equals("createGame")) {
+            partie = i.getParcelableExtra(createGame.NOM);
             partie.setPtsJ1(0);
             partie.setPtsJ2(0);
             partiesBDD.insertPartie(partie);
         } else {
-            partie = partiesBDD.getPartie(i.getStringExtra("com.haluberlu.myfirstapp.Reprendre.NOM_PARTIE"));
-        }
-        /*String[] noms = i.getStringArrayExtra(createGame.NOMS);
-
-        if(!"".equals(noms[0])) {
-            nomGame.setText(noms[0]);
+            partie = partiesBDD.getPartie(i.getStringExtra(Reprendre.NOM_PARTIE));
         }
 
-        if(!"".equals(noms[1])) {
-            nomJ1.setText(noms[1]);
-        }
-
-        if(!"".equals(noms[2])) {
-            nomJ2.setText(noms[2]);
-        }
-
-        //a faire en // pour ne pas bloquer le thread UI?
-        partie = new Partie();
-        partie.setNomPartie(noms[0]);
-        partie.setNomJ1(noms[1]);
-        partie.setNomJ2(noms[2]);
-        partie.setPtsJ1(0);
-        partie.setPtsJ2(0);*/
 
         nomGame.setText(partie.getNomPartie());
         nomJ1.setText(partie.getNomJ1());
         nomJ2.setText(partie.getNomJ2());
-
-        partiesBDD.close();
-
     }
 
     private View.OnClickListener addListener = new View.OnClickListener() {
@@ -203,5 +180,17 @@ public class GameActivity extends Activity {
         partiesBDD.close();
 
         super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        partiesBDD.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        partiesBDD.close();
+        super.onPause();
     }
 }
