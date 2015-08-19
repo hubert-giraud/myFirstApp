@@ -47,7 +47,8 @@ public class createGame extends Activity {
             partie.setNomPartie(nomPartie.getText().toString());
             partie.setNomJ1(nomJ1ET.getText().toString());
             partie.setNomJ2(nomJ2ET.getText().toString());
-            intent.putExtra("com.haluberlu.myfirstapp.Partie", partie);
+            intent.putExtra("com.haluberlu.myfirstapp.createGame.NOM_PARTIE", partie);
+            intent.putExtra("originator", "createGame");
             startActivity(intent);
         }
     };

@@ -9,7 +9,7 @@ import android.content.Context;
  */
 public class PartieBddHandler extends SQLiteOpenHelper {
 
-    public static final String COL_ID = "Id";
+    public static final String COL_ID = "_id";
     public static final String COL_NOM_PARTIE = "nom_partie";
 
     public static final String COL_NOM_J1 = "nom_J1";
@@ -18,8 +18,7 @@ public class PartieBddHandler extends SQLiteOpenHelper {
     public static final String COL_NB_PTS_J2 = "nb_pts_J2";
 
     public static final String PARTIES_TABLE_NAME = "table_parties";
-    public static final String PARTIES_TABLE_CREATE =
-            "CREATE TABLE " + PARTIES_TABLE_NAME + " (" +
+    public static final String PARTIES_TABLE_CREATE = "CREATE TABLE " + PARTIES_TABLE_NAME + " (" +
             COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COL_NOM_PARTIE + " TEXT, " +
             COL_NOM_J1 + " TEXT, " +

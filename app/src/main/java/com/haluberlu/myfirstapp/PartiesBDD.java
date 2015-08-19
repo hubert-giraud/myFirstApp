@@ -11,20 +11,20 @@ import android.content.Context;
 public class PartiesBDD {
 
     private static final int VERSION_BDD = 1;
-    private static final String NOM_BDD = "parties.db";
+    private static final String NOM_BDD = "table_parties";
 
     private static final String PARTIE_TABLE_NAME = "table_parties";
-    private static final String COL_ID = "ID";
+    private static final String COL_ID = "_id";
     private static final int NUM_COL_ID = 0;
-    private static final String COL_NOM = "Nom";
+    private static final String COL_NOM = "nom_partie";
     private static final int NUM_COL_NOM = 1;
-    private static final String COL_NOM_J1 = "Nom_J1";
+    private static final String COL_NOM_J1 = "nom_J1";
     private static final int NUM_COL_NOM_J1 = 2;
-    private static final String COL_NB_PTS_J1 = "Nb_pts_J1";
+    private static final String COL_NB_PTS_J1 = "nb_pts_J1";
     private static final int NUM_COL_NB_PTS_J1 = 3;
-    private static final String COL_NOM_J2 = "Nom_J2";
+    private static final String COL_NOM_J2 = "nom_J2";
     private static final int NUM_COL_NOM_J2 = 4;
-    private static final String COL_NB_PTS_J2 = "Nb_pts_J2";
+    private static final String COL_NB_PTS_J2 = "nb_pts_J2";
     private static final int NUM_COL_NB_PTS_J2 = 5;
 
     private SQLiteDatabase bdd;
@@ -50,11 +50,8 @@ public class PartiesBDD {
     public long insertPartie(Partie partie) {
         ContentValues values = new ContentValues();
         values.put(COL_NOM, partie.getNomPartie());
-        //values.put(COL_NB_JOUEURS, partie.getNbJoueurs());
         values.put(COL_NOM_J1, partie.getNomJ1());
         values.put(COL_NOM_J2, partie.getNomJ2());
-        //values.put(COL_NOM_J3, partie.getNomJ3());
-        //values.put(COL_NOM_J4, partie.getNomJ4());
 
         return bdd.insert(PARTIE_TABLE_NAME,null, values);
     }
@@ -63,8 +60,9 @@ public class PartiesBDD {
         ContentValues values = new ContentValues();
         values.put(COL_NB_PTS_J1, partie.getPtsJ1());
         values.put(COL_NB_PTS_J2, partie.getPtsJ2());
+        String nomPartie = partie.getNomPartie();
 
-        return bdd.update(NOM_BDD, values, COL_NOM + " = " + partie.getNomPartie(), null); //il propose de simplifier en ne mettant que partie ds 3ème champs...
+        return bdd.update(PARTIE_TABLE_NAME, values, COL_NOM + " =?", new String[] {nomPartie}); //il propose de simplifier en ne mettant que partie ds 3ème champs...
 
     }
 
@@ -86,7 +84,6 @@ public class PartiesBDD {
         partie.setNomJ2(c.getString(NUM_COL_NOM_J2));
         partie.setPtsJ1(c.getInt(NUM_COL_NB_PTS_J1));
         partie.setPtsJ2(c.getInt(NUM_COL_NB_PTS_J2));
-
 
         c.close();
 

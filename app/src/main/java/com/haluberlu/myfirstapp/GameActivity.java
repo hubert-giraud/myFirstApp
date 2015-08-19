@@ -1,6 +1,7 @@
 package com.haluberlu.myfirstapp;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -63,9 +64,23 @@ public class GameActivity extends Activity {
         j1SubBtn.setOnClickListener(subListener);
         j2SubBtn.setOnClickListener(subListener);
 
+        PartiesBDD partiesBDD = new PartiesBDD(this);
+
+        partiesBDD.open();
+
         Intent i = getIntent();
 
-        String[] noms = i.getStringArrayExtra(createGame.NOMS);
+
+
+        if(i.getStringExtra("originator").equals("createGame")) {
+            partie = i.getParcelableExtra("com.haluberlu.myfirstapp.createGame.NOM_PARTIE");
+            partie.setPtsJ1(0);
+            partie.setPtsJ2(0);
+            partiesBDD.insertPartie(partie);
+        } else {
+            partie = partiesBDD.getPartie(i.getStringExtra("com.haluberlu.myfirstapp.Reprendre.NOM_PARTIE"));
+        }
+        /*String[] noms = i.getStringArrayExtra(createGame.NOMS);
 
         if(!"".equals(noms[0])) {
             nomGame.setText(noms[0]);
@@ -85,12 +100,12 @@ public class GameActivity extends Activity {
         partie.setNomJ1(noms[1]);
         partie.setNomJ2(noms[2]);
         partie.setPtsJ1(0);
-        partie.setPtsJ2(0);
+        partie.setPtsJ2(0);*/
 
-        PartiesBDD partiesBDD = new PartiesBDD(this);
+        nomGame.setText(partie.getNomPartie());
+        nomJ1.setText(partie.getNomJ1());
+        nomJ2.setText(partie.getNomJ2());
 
-        partiesBDD.open();
-        partiesBDD.insertPartie(partie); //TODO tester si la partie n'esiste pas
         partiesBDD.close();
 
     }
@@ -176,7 +191,14 @@ public class GameActivity extends Activity {
     protected void onStop() {
         PartiesBDD partiesBDD = new PartiesBDD(this);
 
+        //ContentValues values = new ContentValues();
+        //values.put("nb_pts_J1", nbPtsJ1);
+        //values.put("nb_pts_J2", nbPtsJ2);
         partiesBDD.open();
+
+        partiesBDD.update(partie);
+
+
         //partiesBDD.insert(partie);
         partiesBDD.close();
 
