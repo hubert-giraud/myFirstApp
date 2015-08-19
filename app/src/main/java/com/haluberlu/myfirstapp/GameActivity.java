@@ -80,11 +80,15 @@ public class GameActivity extends Activity {
             partiesBDD.insertPartie(partie);
         } else {
             partie = partiesBDD.getPartie(i.getStringExtra(Reprendre.NOM_PARTIE));
+            nbPtsJ1 = partie.getPtsJ1();
+            nbPtsJ2 = partie.getPtsJ2();
         }
 
         nomGame.setText(partie.getNomPartie());
         nomJ1.setText(partie.getNomJ1());
         nomJ2.setText(partie.getNomJ2());
+        ptsJ1.setText("" + nbPtsJ1);
+        ptsJ2.setText("" + nbPtsJ2);
     }
 
     private View.OnClickListener addListener = new View.OnClickListener() {
