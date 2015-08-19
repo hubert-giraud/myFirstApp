@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-/**
- * Created by haluberlu on 05/08/2015.
- */
 public class Partie implements Parcelable {
 
     private int id;
@@ -96,7 +93,6 @@ public class Partie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
         dest.writeString(nomPartie);
         dest.writeString(nomJ1);
         dest.writeInt(ptsJ1);

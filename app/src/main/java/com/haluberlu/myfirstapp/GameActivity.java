@@ -68,10 +68,11 @@ public class GameActivity extends Activity {
         partiesBDD.open();
 
         Intent i = getIntent();
-        String originator = getIntent().getStringExtra("originator");
+        String originator = i.getStringExtra("originator");
 
         //Bundle extras = i.getExtras();
 
+        //ne fonctionne pas, parcelable ou extra?
         if(originator.equals("createGame")) {
             partie = i.getParcelableExtra(createGame.NOM);
             partie.setPtsJ1(0);
@@ -80,7 +81,6 @@ public class GameActivity extends Activity {
         } else {
             partie = partiesBDD.getPartie(i.getStringExtra(Reprendre.NOM_PARTIE));
         }
-
 
         nomGame.setText(partie.getNomPartie());
         nomJ1.setText(partie.getNomJ1());
@@ -101,13 +101,9 @@ public class GameActivity extends Activity {
 
                     if(!"".equals(p)) {
                         pValue = Integer.parseInt(p); // pk valueOf?
-
                         nbPtsJ1 += pValue;
-
                         ptsJ1.setText(nbPtsJ1 + " points");
-
                         partie.setPtsJ1(nbPtsJ1);
-
                         ptsEditJ1.getText().clear();
                     }
                     break;
@@ -117,17 +113,11 @@ public class GameActivity extends Activity {
 
                     if(!"".equals(p)) {
                         pValue = Integer.parseInt(p); // pk valueOf?
-
                         nbPtsJ2 += pValue;
-
                         ptsJ2.setText(nbPtsJ2 + " points");
-
                         partie.setPtsJ2(nbPtsJ2);
-
                         ptsEditJ2.getText().clear();
                     }
-
-
             }
         }
     };
@@ -167,18 +157,9 @@ public class GameActivity extends Activity {
 
     protected void onStop() {
         PartiesBDD partiesBDD = new PartiesBDD(this);
-
-        //ContentValues values = new ContentValues();
-        //values.put("nb_pts_J1", nbPtsJ1);
-        //values.put("nb_pts_J2", nbPtsJ2);
         partiesBDD.open();
-
         partiesBDD.update(partie);
-
-
-        //partiesBDD.insert(partie);
         partiesBDD.close();
-
         super.onStop();
     }
 

@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 public class createGame extends Activity {
 
-    public static final String NOM = "com.haluberlu.myfirstapp..createGame.NOM";
+    public static final String NOM = "com.haluberlu.myfirstapp.createGame.NOM";
 
     private EditText nomPartie;
     private EditText nomJ1ET;
@@ -17,6 +17,8 @@ public class createGame extends Activity {
     private Button createGameBtn;
 
     private String activityName = "createGame";
+
+    private PartiesBDD partiesBDD;
 
     @Override
     public void onCreate(Bundle savedStateInstance) {
@@ -30,10 +32,8 @@ public class createGame extends Activity {
 
         createGameBtn.setOnClickListener(startGameListener);
 
-        //JoueurBDD joueurBDD = new JoueurBDD(this);
-
-
-
+        partiesBDD = new PartiesBDD(this);
+        partiesBDD.open();
     }
 
     private View.OnClickListener startGameListener = new View.OnClickListener() {
@@ -46,6 +46,8 @@ public class createGame extends Activity {
             partie.setNomPartie(nomPartie.getText().toString());
             partie.setNomJ1(nomJ1ET.getText().toString());
             partie.setNomJ2(nomJ2ET.getText().toString());
+            //partiesBDD.insertPartie(partie); manque aussi .close()
+            //intent.putExtra(NOM, partie.getNomPartie());
             intent.putExtra("originator", activityName);
             intent.putExtra(NOM, partie);
             startActivity(intent);

@@ -30,20 +30,8 @@ public class Reprendre extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_list);
 
-        Partie partie1 = new Partie();
-        partie1.setNomPartie("partie1");
-        partie1.setNomJ1("j1");
-        partie1.setNomJ2("j2");
-
-        Partie partie2 = new Partie();
-        partie2.setNomPartie("partie2");
-        partie2.setNomJ1("j3");
-        partie2.setNomJ2("j4");
-
         partiesBDD = new PartiesBDD(this);
         partiesBDD.open();
-        partiesBDD.insertPartie(partie1);
-        partiesBDD.insertPartie(partie2);
         nomParties = partiesBDD.getPartiesName();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nomParties);

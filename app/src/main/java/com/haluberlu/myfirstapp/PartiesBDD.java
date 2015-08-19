@@ -25,7 +25,6 @@ public class PartiesBDD {
     private static final int NUM_COL_NB_PTS_J2 = 5;
 
     private SQLiteDatabase bdd;
-
     private PartieBddHandler partieBddHandler;
 
     public PartiesBDD(Context context) {
@@ -59,8 +58,7 @@ public class PartiesBDD {
         values.put(COL_NB_PTS_J2, partie.getPtsJ2());
         String nomPartie = partie.getNomPartie();
 
-        return bdd.update(PARTIE_TABLE_NAME, values, COL_NOM + " =?", new String[] {nomPartie}); //il propose de simplifier en ne mettant que partie ds 3ème champs...
-
+        return bdd.update(PARTIE_TABLE_NAME, values, COL_NOM + " =?", new String[] {nomPartie});
     }
 
     public Partie getPartie(String nom) {
